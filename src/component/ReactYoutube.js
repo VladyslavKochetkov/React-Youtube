@@ -3,10 +3,162 @@ import React, { Component } from "react";
 class ReactYoutube extends Component {
     constructor(props) {
         super();
-        this.state = {
-            playPress: false,
-            UUID: "ReactYoutube" + Math.floor(Math.random() * 10000000),
-            fadePostFix: ""
+        // this.state = {
+        //     playPress: false,
+        //     UUID: "ReactYoutube" + Math.floor(Math.random() * 10000000),
+        //     fadePostFix: "",
+        //     URL: props.URL,
+        //     videoID: props.videoID,
+        //     lazyload: props.lazyload,
+        //     lazyloadSize: props.lazyloadSize,
+        //     thumbnailRes: props.thumbnailRes,
+        //     thumbnailId: props.thumbnailId,
+        //     youtubeOptions: props.youtubeOptions,
+        //     transition: props.transition,
+        //     duration: props.duration
+        // }
+
+        // this._handleInit(props);
+        // let videoID = this._handleVideo(props);
+        // this._handleThumbnail(props, videoID);
+        // this._handleOther(props);
+        this.state = { ...this._handleInit(props), UUID: "ReactYoutube" + Math.floor(Math.random() * 10000000), playPress: false};
+    }
+
+    _handleInit(props){
+        let allObjects = {};
+        let handleVideoObject = this._handleVideoV2(props);
+        allObjects = {...allObjects, 
+            ...handleVideoObject, 
+            ...this._handleThumbnailV2(props, handleVideoObject.videoID),
+            ...this._handleOtherV2(props)};
+        return allObjects;
+    }
+
+    _handleOtherV2(props){
+        let {
+            height,
+            width,
+            lazyload,
+            lazyloadSize,
+            transition,
+            duration
+        } = props;
+
+        let css = "";
+        if (!height)
+            height = 450;
+        height += "px";
+
+        if (!width)
+            width = 800;
+        width += "px";
+
+        if (lazyload === "false") {
+            lazyload = false;
+        } else if (lazyload === "true") {
+            lazyload = true;
+        } else {
+            lazyload = false;
+        }
+
+        if (lazyload) {
+            if (!lazyloadSize) {
+                lazyloadSize = 300;
+            }
+            switch (transition) {
+                case "ease-out":
+                    transition = "ease-out";
+                    break;
+                case "ease-in-out":
+                    transition = "ease-in-out";
+                    break;
+                case "none":
+                    transition = "none;"
+                    break;
+                default:
+                    transition = "ease-in";
+            }
+            if (transition !== "none") {
+                if (!duration) {
+                    duration = 300;
+                }
+                duration = (duration / 1000) + "s";
+                css =
+                    `.ReactYoutube-initFade{
+                    opacity: 0;
+                }
+                .ReactYoutube-startFade{
+                    opacity: 0;
+                }
+                .ReactYoutube-fadeDone{
+                    opacity: 1;
+                    transition: opacity ${duration} ${transition};
+                }`;
+            }
+        } else {
+            lazyloadSize = null;
+            transition = null;
+        }
+        return{ height: height, width: width, lazyload: lazyload, lazyloadSize: lazyloadSize, transition: transition, transCSS: css, duration: duration };
+    }
+
+    _handleThumbnailV2(props, videoID){
+        let urlEnding = "";
+        switch (props.thumbnailRes) {
+            case "hq":
+                urlEnding += "hq";
+                break;
+            case "mq":
+                urlEnding += "mq";
+                break;
+            case "sd":
+                urlEnding += "sd";
+                break;
+            default:
+                urlEnding += "maxres";
+        }
+
+        switch (props.thumbnailId) {
+            case "0":
+                urlEnding += "0";
+                break;
+            case "1":
+                urlEnding += "1";
+                break;
+            case "2":
+                urlEnding += "2";
+                break;
+            case "3":
+                urlEnding += "3";
+                break;
+            default:
+                urlEnding += "default";
+        }
+
+        return { thumbnail: `https://img.youtube.com/vi/${videoID}/${urlEnding}.jpg` };
+    }
+
+    _handleVideoV2(props){
+        let query = "";
+        for (let key in props.youtubeOptions) {
+            if (query.length === 0) {
+                query += `${key}=${props.youtubeOptions[key]}`
+            } else {
+                query += `&${key}=${props.youtubeOptions[key]}`
+            }
+        }
+        if (props.videoID) {
+            return {videoID: props.videoID, URL: `https://www.youtube.com/embed/${props.videoID}?${query}`};
+        } else if (props.URL) {
+            let videoID = props.URL.substr(props.URL.indexOf("v=") + 2, props.URL.length);
+            let endOf = videoID.indexOf("&");
+            if (endOf === -1)
+                endOf = videoID.length;
+            videoID = videoID.substr(0, endOf);
+            return { videoID: videoID, URL: `https://www.youtube.com/embed/${videoID}?${query}` };
+        } else {
+            return {videoID: null, URL: null}
         }
     }
 
@@ -42,7 +194,7 @@ class ReactYoutube extends Component {
             default:
                 urlEnding += "default";
         }
-
+        
         this.setState({thumbnail: `https://img.youtube.com/vi/${videoID}/${urlEnding}.jpg`});
     }
 
@@ -141,9 +293,9 @@ class ReactYoutube extends Component {
     }
 
     componentWillReceiveProps(props){
-        let videoID = this._handleVideo(props);
-        this._handleThumbnail(props, videoID);
-        this._handleOther(props);
+        // let videoID = this._handleVideo(props);
+        // this._handleThumbnail(props, videoID);
+        // this._handleOther(props);
     }
 
     componentDidMount(){
@@ -245,9 +397,9 @@ class ReactYoutube extends Component {
     }
 
     render(){
+        console.log(this.state);
         if(this.state.videoID == null)
             return <div className="ReactYoutube-NoID"></div>
-
         return (
             <div ref={this.state.UUID} className="ReactYoutube">
                 <style>
