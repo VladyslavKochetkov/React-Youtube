@@ -37,9 +37,9 @@ class App extends Component {
         <div className="source" style={this.sourceStyle}>
           Play Video: <input ref="input" placeholder="Youtube URL" onKeyPress={this.setVideo}/>
         </div>
-        {/* <ReactYoutube
-          URL={this.state.currentURL} //video link on youtube, either this of videoID
-          // videoID={this.state.videoID} // video id on youtube, either this of currentURL
+        <ReactYoutube
+          // URL={this.state.currentURL} //video link on youtube, either this of videoID
+          videoID={this.state.videoID} // video id on youtube, either this of currentURL
           lazyload="true" // enable lazy load true or false
           lazyloadSize={400} // options any amount of pixels before viewport
           height={450} //  options any height in pixels
@@ -52,15 +52,7 @@ class App extends Component {
             autoplay: "1", //autoplay should always be 1 because this component naturally disables autoplay
             rel: "0"
           }} // Allows all of these https://developers.google.com/youtube/player_parameters
-        /> */}
-        <ReactYoutube
-          URL="https://www.youtube.com/watch?v=A71aqufiNtQ"
-          lazyload="true"
-          lazyloadSize={300}
-          youtubeOptions={{
-            autoplay: "1",
-            red: "0"
-          }}/>
+        />
       </div>
     );
   }

@@ -14,9 +14,6 @@ After seeing many similar packages none of the had exactly what was needed for m
 />
 ```
 
-## To install run
-```npm i react-youtube-lazy```
-
 # Documentation
 This component accepts multiple props, but only either a videoID OR a URL is mandatory, otherwise it will backfall to default values.
 
