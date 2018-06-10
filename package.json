@@ -5,12 +5,6 @@
   "dependencies": {
     "react": "^16.4.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  },
   "description": "After seeing many similar packages none of the had exactly what was needed for my development. Most didn't have a lazyload features, and tryin to implement broke the component, and other simply plugged the videoID you provided into youtube embed iframe. So I setout to create a customizable youtube loader that has lazyload built it and is extremely customizable.",
   "main": "index.js",
   "devDependencies": {},
