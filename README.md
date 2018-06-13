@@ -103,7 +103,7 @@ This player has some nice features as a custom thumbnail. Instead of embedded Yo
 ## Quirks
 - Thumbnail will be shown twice if the youtubeOption autoplay: "0" is passed. This is because of a conflict with the players custom thumbnail and will be patched out in a later patch.
 
-## Play Around With IT
+## Play Around With It
 Still not sold? Head over to https://codepen.io/vladyslavkochetkov/pen/rKjdBN and play around with it. Feedback is welcome and incouraged.
 
 ## Future Features (Not set in stone)
