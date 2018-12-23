@@ -7,12 +7,18 @@
     "react-dom": "^16.4.0",
     "react-scripts": "1.1.4"
   },
+  "devDependencies": {
+    "@types/react": "^16.7.17",
+    "@types/react-dom": "^16.0.11",
+    "typescript": "^3.2.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "types": "src/ReactYoutube.d.ts",
   "description": "After seeing many similar packages none of the had exactly what was needed for my development. Most didn't have a lazyload features, and tryin to implement broke the component, and other simply plugged the videoID you provided into youtube embed iframe. So I setout to create a customizable youtube loader that has lazyload built it and is extremely customizable.",
   "main": "dist/react-youtube-lazy.jsx",
   "repository": {
@@ -25,7 +31,9 @@
     "Lazy",
     "Lazyload",
     "Load",
-    "ReactJS"
+    "ReactJS",
+    "TypeScript",
+    "TS",
   ],
   "author": "Vladyslav Kochetkov <vladyslavkochetkov1998@gmail.com>",
   "license": "MIT",
